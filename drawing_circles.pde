@@ -1,5 +1,5 @@
-int numPoints = 10;
-int numRepeats = 10;
+int numPoints = 100;
+int numRepeats = 40;
 
 PVector [][] points = new PVector[numRepeats][numPoints+2];
 
@@ -12,13 +12,9 @@ void setup()
     float angle = TWO_PI / numPoints;
     
     for (int j = 0; j < numRepeats; j++) {
-        float noise1 = j*random(-.1,.1);
       for (int i = 0; i < numPoints+2; i++) {
-          
-        float noise2 = random(-j*5,j*5);
-          float noise = j*random(-.1,.1)+random(-noise1,noise1);
-          float x = cos( angle * i ) * radius+noise+noise2;
-          float y = sin( angle * i ) * radius+noise+noise2;;
+          float x = cos( angle * i ) * radius;
+          float y = sin( angle * i ) * radius;
           points[j][i] = new PVector( x, y );
       }
     }
@@ -34,17 +30,16 @@ void draw()
     fill(0);
     stroke(0, 100);
     
-    translate( width/2, height/2);
+    translate( 800, 400);
     
     for (int i = 0; i < numRepeats; i++) {
+       translate( (numRepeats-i)*random(-1,1)+i/10, (numRepeats-i)*random(-1,1)+i/10);
         for (int j = 0; j < numPoints+1; j++) {
-            //if ( j != i ) {
               int noise = i*int(random(10));
-                line( points[i][j].x, points[i][j].y, points[i][j+1].x, points[i][j+1].y );        
-            //}
+                line( points[i][j].x, points[i][j].y, points[i][j+1].x, points[i][j+1].y );      
         }
     }
     
-  save(hour()+""+minute()+""+second()+"__"+day()+""+month()+""+year()+".png"); //save the image as a PNG with a unique timestamped name
+  save(/images/hour()+""+minute()+""+second()+"__"+day()+""+month()+""+year()+".png"); //save the image as a PNG with a unique timestamped name
     
 }
